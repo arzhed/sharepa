@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `homestead`.`users` (
   `name` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NULL,
   `password` VARCHAR(255) NOT NULL,
-  `role` ENUM('guide', 'traveler') NOT NULL,
+  `role` ENUM('guide', 'traveler', 'admin') NOT NULL,
   `short_bio` TEXT NULL,
   `long_bio` TEXT NULL,
   `created_at` TIMESTAMP NULL,
