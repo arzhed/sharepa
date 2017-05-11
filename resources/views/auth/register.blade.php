@@ -61,6 +61,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="role" class="col-md-4 control-label">What do you want to be?</label>
+
+                            <div class="col-md-6">
+                                <label>
+                                    <input type="radio" name="role" id="traveler" value="traveler" checked> Traveler
+                                </label>
+                                <label class="margin-left-5">
+                                    <input type="radio" name="role" id="guide" value="guide"> Guide
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Register

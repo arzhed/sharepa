@@ -8,7 +8,7 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="/css/app.css" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>
@@ -64,7 +64,7 @@
             }
         </style>
     </head>
-    <body>
+    <body class="homepage">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -78,9 +78,11 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <!-- <img src="/img/homepage.jpg" width="100%"></img> -->
+                <div class="title text-black bold">
+                    Choose your path
                 </div>
+                <input type="text" class="form-control" placeholder="Try"></input
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

@@ -7,3 +7,21 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "resources/assets/sass/homepage";
+
+body {
+    background-image: url("/img/homepage.jpg");
+}
+
+.text-black {
+    color: black;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.margin-left-5 {
+    margin-left: 0.5rem;
+}
