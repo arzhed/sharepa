@@ -27,7 +27,15 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function redirectTo() {
+        $user = \Auth::user();
+
+        if ($user->role == 'traveler') {
+            return '/home';
+        } else {
+            return '/';
+        }
+    }
 
     /**
      * Create a new controller instance.
