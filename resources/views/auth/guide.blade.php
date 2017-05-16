@@ -1,20 +1,17 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form  class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register-guide') }}">
+                        {{ csrf_field() }}
 
-                        
+                        <guidespecifics></guidespecifics>
 
-                        <div class="form-group" v-if="true">
-                            <label for="password-confirm" class="col-md-4 control-label">Background</label>
-
-                            <div class="col-md-6">
-                                <textarea></textarea>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -29,3 +26,4 @@
         </div>
     </div>
 </div>
+@endsection
