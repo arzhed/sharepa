@@ -78,4 +78,10 @@ class RegisterController extends Controller
             'role'     => $data['role']
         ]);
     }
+
+    protected function guideSpecific()
+    {
+        return view('auth.guide');
+    }
+
 }
