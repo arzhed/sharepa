@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/guide/register', 'Auth\RegisterController@guideSpecific')->name('register-guide');
+Route::get('/guide/register', 'ProfileController@guideSpecificRegistration')->name('register-guide');
