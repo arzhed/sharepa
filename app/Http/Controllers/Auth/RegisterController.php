@@ -30,11 +30,13 @@ class RegisterController extends Controller
     protected function redirectTo() {
         $user = \Auth::user();
 
-        if ($user->role == 'traveler') {
-            return '/home';
-        } else {
-            return '/';
+        if ($user->isTraveler()) {
+            return '/traveler/register';
+        } elseif ($user->isGuide()) {
+            return '/guide/register';
         }
+
+        return '/'; //ADMIN
     }
 
     /**
@@ -77,11 +79,6 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'role'     => $data['role']
         ]);
-    }
-
-    protected function guideSpecific()
-    {
-        return view('auth.guide');
     }
 
 }

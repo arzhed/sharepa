@@ -26,4 +26,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isGuide()
+    {
+        return $this->role === 'guide';
+    }
+
+    public function isTraveler()
+    {
+        return $this->role === 'traveler';
+    }
+
+    public function isRegistrationOver() {
+        if ($this->isGuide()) {
+            return !is_null($this->short_bio) && !is_null($this->long_bio);
+        } else if ($this->isTraveler()) {
+            return !is_null($this->short_bio);
+        }
+        return true; //ADMIN
+    }
+
 }
