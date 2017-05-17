@@ -57,7 +57,7 @@
         ]) !!};
     </script>
 </head>
-<body>
+<body id="app">
     <nav class="navbar navbar-default navbar-transparent">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -68,52 +68,51 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand bold" href="{{ url('/') }}">
+              <router-link class="navbar-brand bold" to="/">
                   {{ config('app.name', 'Laravel') }}
-              </a>
+              </router-link>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                   <!-- Authentication Links -->
-                  @if (Auth::guest())
-                      <li><a href="{{ route('login') }}">Login</a></li>
-                      <li><a href="{{ route('register') }}">Register</a></li>
-                  @else
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                              {{ Auth::user()->name }} <span class="caret"></span>
-                          </a>
+                  <li><router-link to="guidespecifics">Login</router-link></li>
+                  <li><router-link to="register">Register</router-link></li>
+                  <!-- <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                          {{ Auth::user()->name }} <span class="caret"></span>
+                      </a>
 
-                          <ul class="dropdown-menu" role="menu">
-                              <li>
-                                  <a href="{{ route('logout') }}"
-                                      onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();">
-                                      Logout
-                                  </a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li>
+                              <a href="{{ route('logout') }}"
+                                  onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                                  Logout
+                              </a>
 
-                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                      {{ csrf_field() }}
-                                  </form>
-                              </li>
-                          </ul>
-                      </li>
-                  @endif
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}
+                              </form>
+                          </li>
+                      </ul>
+                  </li> -->
               </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 
+    <router-view></router-view>
 
-    <div id="app">
+<!--
+    <div>
         <div class="flex-center position-ref">
             <div class="content">
                 @yield('content')
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
