@@ -7,6 +7,10 @@ var routes = [
         path: '/login',
         component: require('./views/Login.vue')
     },
+    {
+        path: '/register',
+        component: require('./views/Register.vue')
+    },
 ];
 
 module.exports = new VueRouter({

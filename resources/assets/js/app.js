@@ -26,8 +26,6 @@ window.Validator = require('vuelidate/lib/validators');
 var routes = require('./routes.js');
 
 
-Vue.component('login', require('./views/Login'));
-Vue.component('guidespecifics', require('./components/Guidespecifics.vue'));
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue')
