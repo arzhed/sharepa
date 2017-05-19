@@ -17,5 +17,12 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::resource('user', 'UserController', ['only' => [
-    'update', 'show', 'store'
+    'store'
 ]]);
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::resource('user', 'UserController', ['only' => [
+        'update', 'show'
+    ]]);
+    Route::post('user/getByMail', 'UserController@getByMail');
+});

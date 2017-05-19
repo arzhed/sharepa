@@ -19,16 +19,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,23 +44,31 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int|string  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        User::find($id);
+
+        return $user;
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * getByMail
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getByMail(Request $request)
     {
-        //
+        $this->validate($request, [
+            'email' => 'required'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        return $user;
     }
 
     /**

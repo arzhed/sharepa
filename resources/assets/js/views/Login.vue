@@ -39,6 +39,9 @@
 
 <script>
     module.exports = {
+        mounted : function() {
+            console.log('this', this)
+        },
         data : function () {
             return {
                 email : '',
@@ -61,6 +64,7 @@
             login : function() {
                 var vm = this;
                 vm.callbackError = false;
+
                 axios.post('/oauth/token', {
             		'grant_type': 'password',
             		'client_id': 2,
@@ -69,12 +73,13 @@
                     'password' : this.password,
                     'scope' : ''
                 }).then(function(response) {
-                    console.log('response', response)
-
                     vm.$router.push({path: '/'});
+                    localStorage.setItem('shtoken', response.data.access_token)
+                    localStorage.setItem('shemail', vm.email)
+                    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+
+                    vm.$emit('toggle-logged');
                 }).catch(function(error) {
-                    console.log(error)
-                    console.log(vm)
                     vm.callbackError = true;
                 })
             }
