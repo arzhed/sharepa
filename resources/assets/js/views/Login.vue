@@ -5,7 +5,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" v-on:submit="submit">
                             <span class="form-error" v-show="callbackError">Wrong email or password</span>
                             <div class="form-group">
                                 <label for="email" class="col-md-4 control-label">Email</label>
@@ -17,7 +17,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-md-4 control-label">Tell us more about yourself</label>
+                                <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6">
                                     <input type="password" id="password" v-model.trim="password" class="form-control" name="password"></input>
@@ -39,9 +39,6 @@
 
 <script>
     module.exports = {
-        mounted : function() {
-            console.log('this', this)
-        },
         data : function () {
             return {
                 email : '',
@@ -58,9 +55,12 @@
             }
         },
         methods : {
+            submit: function(e) {
+                e.preventDefault();
+            },
             login : function() {
-                callbackError : false;
                 var vm = this;
+                vm.callbackError = false;
                 axios.post('/oauth/token', {
             		'grant_type': 'password',
             		'client_id': 2,

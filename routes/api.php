@@ -17,5 +17,5 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::resource('user', 'UserController', ['only' => [
-    'update', 'show'
+    'update', 'show', 'store'
 ]]);
