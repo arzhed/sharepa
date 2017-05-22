@@ -51,7 +51,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="">Logout</a>
+                                    <a v-on:click="logout">Logout</a>
                                 </li>
                             </ul>
                         </li>

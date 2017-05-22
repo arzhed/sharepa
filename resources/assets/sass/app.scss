@@ -14,9 +14,14 @@ body {
     background-image: url("/img/homepage.jpg");
 }
 
+a {
+    cursor: pointer;
+}
+
 .text-black {
     color: black;
 }
+
 
 .form-error {
     color: red;
