@@ -57,6 +57,14 @@ const app = new Vue({
                     localStorage.setItem('shname', response.data.name);
                 });
             }
+        },
+        logout : function () {
+            localStorage.removeItem('shid');
+            localStorage.removeItem('shemail');
+            localStorage.removeItem('shname');
+            localStorage.removeItem('shtoken');
+            this.logged = false;
+            this.user = { name : ''};
         }
     }
 });
