@@ -27,12 +27,15 @@ window.Validator = require('vuelidate/lib/validators');
 
 var routes = require('./routes.js');
 
+var mixins = require('./mixins.js');
+window.mixin = mixins;
+
 
 const app = new Vue({
     el: '#app',
     router: routes,
     mounted : function () {
-        this.getUserByMail()
+        this.handleLoginStatus()
     },
     data : function() {
         return {
@@ -43,11 +46,11 @@ const app = new Vue({
     methods : {
         toggleLogged : function() {
             this.logged = !this.logged;
-            this.getUserByMail();
+            this.handleLoginStatus();
         },
-        getUserByMail : function() {
+        handleLoginStatus : function() {
+            var vm = this;
             if (localStorage.shtoken != null && localStorage.shemail != null) {
-                var vm = this;
                 axios.post('/api/user/getByMail', {
                     email : localStorage.shemail
                 }).then(function(response) {
@@ -55,7 +58,11 @@ const app = new Vue({
                     vm.logged = true;
                     localStorage.setItem('shid', response.data.id);
                     localStorage.setItem('shname', response.data.name);
+                }).catch(function(error) {
+                    vm.logout();
                 });
+            } else {
+                vm.logout()
             }
         },
         logout : function () {
