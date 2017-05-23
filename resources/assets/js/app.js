@@ -22,7 +22,7 @@ window.VueRouter = VueRouter;
 Vue.use(VueRouter)
 
 import Vuelidate from 'vuelidate'
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 window.Validator = require('vuelidate/lib/validators');
 
 var routes = require('./routes.js');
@@ -64,7 +64,7 @@ const app = new Vue({
             localStorage.removeItem('shname');
             localStorage.removeItem('shtoken');
             this.logged = false;
-            this.user = { name : ''};
+            this.user = { name : ''}
         }
     }
 });

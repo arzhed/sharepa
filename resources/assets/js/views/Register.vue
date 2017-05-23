@@ -6,13 +6,12 @@
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
                         <form class="form-horizontal" v-on:submit="submit">
-                            <span class="form-error" v-show="callbackError">Wrong email or password</span>
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Name</label>
 
                                 <div class="col-md-6">
-                                    <input type="name" id="name" v-model.trim="name" class="form-control" name="name" autofocus=""></input>
-                                    <span class="form-error" v-show="!$v.name.required">Username is required</span>
+                                    <input type="name" v-on:input="$v.name.$touch" id="name" v-model.trim="name" class="form-control" name="name" autofocus=""></input>
+                                    <span class="form-error" v-show="$v.name.$dirty && !$v.name.required">Username is required</span>
                                 </div>
 
                             </div>
@@ -20,8 +19,8 @@
                                 <label for="email" class="col-md-4 control-label">Email</label>
 
                                 <div class="col-md-6">
-                                    <input type="email" id="email" v-model.trim="email" class="form-control" name="email" autofocus=""></input>
-                                    <span class="form-error" v-show="!$v.email.required">Email is required</span>
+                                    <input type="email" v-on:input="$v.email.$touch" id="email" v-model.trim="email" class="form-control" name="email" autofocus=""></input>
+                                    <span class="form-error" v-show="$v.email.$dirty && !$v.email.required">Email is required</span>
                                 </div>
 
                             </div>
@@ -29,16 +28,16 @@
                                 <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" id="password" v-model.trim="password" class="form-control" name="password"></input>
-                                    <span class="form-error" v-show="!$v.password.required">Password is required</span>
+                                    <input type="password" v-on:input="$v.password.$touch" id="password" v-model.trim="password" class="form-control" name="password"></input>
+                                    <span class="form-error" v-show="$v.password.$dirty && !$v.password.required">Password is required</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="confirm" class="col-md-4 control-label">Confirm password</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" id="confirm" v-model.trim="confirm" class="form-control" name="confirm"></input>
-                                    <span class="form-error" v-show="!$v.confirm.required">Confirm is required</span>
+                                    <input type="password" v-on:input="$v.confirm.$touch" id="confirm" v-model.trim="confirm" class="form-control" name="confirm"></input>
+                                    <span class="form-error" v-show="$v.confirm.$dirty && !$v.confirm.required">Confirm is required</span>
                                 </div>
                             </div>
 
@@ -100,10 +99,9 @@
         methods : {
             submit: function(e) {
                 e.preventDefault();
-                callbackError : false;
+                this.callbackError = false;
                 var vm = this;
 
-                console.log('this', this)
                 axios.post('/api/user', {
                 	'name'                   : vm.name,
                 	'email'                  : vm.email,
@@ -111,13 +109,8 @@
                     'password_confirmation'  : vm.confirm,
                 	'role'                   : vm.role,
                 }).then(function(response) {
-                    console.log('response', response)
-
                     vm.$router.push({path: '/'});
                 }).catch(function(error) {
-                    console.log(error)
-                    console.log(vm)
-                    vm.callbackError = true;
                 })
             },
         }
