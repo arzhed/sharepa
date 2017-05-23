@@ -109,8 +109,10 @@
                     'password_confirmation'  : vm.confirm,
                 	'role'                   : vm.role,
                 }).then(function(response) {
-                    vm.$router.push({path: '/'});
+                    var redirect = '/register/' + vm.role;
+                    mixin.mixLogin.call(vm, vm.email, vm.password, redirect);
                 }).catch(function(error) {
+                    vm.callbackError = true;
                 })
             },
         }

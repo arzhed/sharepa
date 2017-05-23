@@ -39,9 +39,6 @@
 
 <script>
     module.exports = {
-        mounted : function() {
-            console.log('this', this)
-        },
         data : function () {
             return {
                 email : '',
@@ -62,26 +59,7 @@
                 e.preventDefault();
             },
             login : function() {
-                var vm = this;
-                vm.callbackError = false;
-
-                axios.post('/oauth/token', {
-            		'grant_type': 'password',
-            		'client_id': 2,
-            		'client_secret': 'H1e3Dy4wM6t1MJM4wx87B6ZU8KIbAf1f4ycxfYt6',
-            		'username' : this.email,
-                    'password' : this.password,
-                    'scope' : ''
-                }).then(function(response) {
-                    vm.$router.push({path: '/'});
-                    localStorage.setItem('shtoken', response.data.access_token)
-                    localStorage.setItem('shemail', vm.email)
-                    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
-
-                    vm.$emit('toggle-logged');
-                }).catch(function(error) {
-                    vm.callbackError = true;
-                })
+                mixin.mixLogin.call(this, this.email, this.password, '/')
             }
         }
     }

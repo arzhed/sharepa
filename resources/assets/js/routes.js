@@ -1,3 +1,7 @@
+function isLoggedIn () {
+    return localStorage.getItem('shtoken') != null;
+}
+
 var routes = [
     {
         path: '/',
@@ -5,12 +9,42 @@ var routes = [
     },
     {
         path: '/login',
-        component: require('./views/Login.vue')
+        component: require('./views/auth/Login.vue')
     },
     {
         path: '/register',
-        component: require('./views/Register.vue')
+        component: require('./views/auth/Register.vue'),
+        name : 'register',
+        beforeEnter : function(to,from,next) {
+            if (isLoggedIn()) {
+                next(false);
+            } else {
+                next()
+            }
+        }
     },
+    {
+        path: '/register/guide',
+        component: require('./views/auth/GuideRegister.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn() && from.name == 'register') {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    },
+    {
+        path: '/register/traveler',
+        component: require('./views/auth/TravelerRegister.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn() && from.name == 'register') {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    }
 ];
 
 module.exports = new VueRouter({
