@@ -72,6 +72,7 @@ const app = new Vue({
             localStorage.removeItem('shtoken');
             this.logged = false;
             this.user = { name : ''}
+            window.axios.defaults.headers.common['Authorization'] = '';
         }
     }
 });

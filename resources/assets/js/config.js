@@ -1,2 +1,6 @@
+
 module.exports = {
+    user : {
+        name : ''
+    }
 }
