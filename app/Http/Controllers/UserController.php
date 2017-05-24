@@ -80,7 +80,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = \Auth::user();
+
+        if ($user->id != $id) {
+            return response('You are not this user', 403);
+        }
+
+        $this->validate($request, [
+            'short_bio' => 'string|max:300',
+            'long_bio'  => 'string'
+        ]);
+
+        if ($request->has('short_bio')) {
+            $user->short_bio = $request->short_bio;
+        }
+        if ($request->has('long_bio')) {
+            $user->long_bio = $request->long_bio;
+        }
+        $user->save();
+
+        return $user->toArray();
     }
 
     /**

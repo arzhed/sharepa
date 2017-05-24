@@ -60,10 +60,7 @@
                 this.callbackError = false;
                 var vm = this;
 
-                console.log('this', this)
-                console.log('this.$parent', this.$parent)
-
-                axios.post('/api/user/' + this.$parent.shid, {
+                axios.put('/api/user/' + this.$parent.user.id, {
                     short_bio: this.short_bio,
                     long_bio : this.long_bio
                 }).then(function(response) {
