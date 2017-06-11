@@ -32,12 +32,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <router-link class="navbar-brand bold" to="/">
-                      {{ config('app.name', 'Laravel') }}
-                  </router-link>
+                  <router-link class="navbar-brand bold" to="/">{{ config('app.name', 'Laravel') }}</router-link>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><router-link to="/guide/adventures">Adventures</router-link></li>
+                        <li><router-link to="/guide/dashboard">Dashboard</router-link></li>
+                    </ul>
                     <ul v-if="!logged" class="nav navbar-nav navbar-right">
                       <!-- Authentication Links -->
                         <li><router-link to="login">Login</router-link></li>
