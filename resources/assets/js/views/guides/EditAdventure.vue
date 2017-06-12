@@ -72,8 +72,18 @@ module.exports = {
         price : {}
     },
     methods : {
-        submit : function() {
-
+        submit : function(e) {
+            e.preventDefault();
+            var vm = this;
+            axios.post('/api/adventure', {
+                'title'             : vm.title,
+                'price'             : vm.price,
+                'short_description' : vm.short_description,
+                'long_description'  : vm.long_description,
+            }).then(function(response) {
+                vm.$router.push({path: '/guide/adventures'});
+            }).catch(function(error) {
+            })
         }
     }
 }

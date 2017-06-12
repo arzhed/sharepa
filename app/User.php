@@ -47,4 +47,8 @@ class User extends Authenticatable
         return true; //ADMIN
     }
 
+    public function adventures() {
+        return $this->hasMany('App\Adventure', 'guide_id', 'id');
+    }
+
 }
