@@ -14,6 +14,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="photos" class="col-md-4 control-label">Photos</label>
+                                <div class="col-md-6">
+                                    <upload upload-id="photos"></upload>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="price" class="col-md-4 control-label">Price</label>
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -57,6 +63,7 @@ module.exports = {
             price : 1,
             short_description : '',
             long_description : '',
+            photos: {}
         }
     },
     validations : {
