@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="photos" class="col-md-4 control-label">Photos</label>
                                 <div class="col-md-6">
-                                    <upload upload-id="photos"></upload>
+                                    <upload upload-id="photos" upload-url="/api/upload"></upload>
                                 </div>
                             </div>
                             <div class="form-group">
