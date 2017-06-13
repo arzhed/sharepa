@@ -51,4 +51,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Adventure', 'guide_id', 'id');
     }
 
+    public function files() {
+        return $this->hasMany('App\File', 'user_id', 'id');
+    }
+
 }

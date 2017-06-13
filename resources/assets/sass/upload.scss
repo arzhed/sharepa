@@ -1,12 +1,12 @@
 .upload {
 
-    .thumb {
+    &.thumb {
         height: 10rem;
         margin-bottom: 0.3rem;
         margin-right: 0.3rem;
     }
 
-    .thumb-error {
+    &.thumb-error {
         width: 10rem;
         background-color: lightgray;
         display: inline-block;
