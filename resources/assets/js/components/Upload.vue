@@ -8,6 +8,8 @@
 </template>
 
 <script>
+
+
     module.exports = {
         props: ['uploadId', 'uploadUrl', 'files'],
         data : function() {
@@ -45,7 +47,7 @@
                 data.append('file', file);
 
                 axios.post(this.uploadUrl, data).then(function (response) {
-                    vm.renderThumbs(file);
+                    vm.renderThumbs(file, response.data.id);
                     vm.files_id.push(response.data.id);
 
                     if (i == length - 1) {
@@ -55,7 +57,7 @@
                     vm.renderThumbError();
                 });
             },
-            renderThumbs : function(file) {
+            renderThumbs : function(file, id) {
                 var vm = this;
                 var reader = new FileReader();
 
@@ -63,13 +65,24 @@
                 reader.onload = (function(theFile) {
                     return function(e) {
                         // Render thumbnail.
-                        var div = document.createElement('div');
-                        div.className = "upload thumb-container position-relative";
-                        div.innerHTML = ['<img class="thumb thumb-file upload" src="', e.target.result,
-                                        '" title="', escape(theFile.name), '"/>'].join('');
-                        div.innerHTML += '<div class="upload thumb thumb-hover"><span class="rm-upload glyphicon glyphicon-remove"></span></div>';
 
-                        document.getElementById(vm.outputId).insertBefore(div, null);
+                        //We define a new component to be able to compile it in vue and have access to events and context
+                        var ThumbComponent = Vue.extend({
+                            template : [
+                                '<div id="thumb-', id, '" class="upload thumb-container position-relative">',
+                                    '<img class="thumb thumb-file upload" src="', e.target.result,'" title="', escape(theFile.name), '"/>',
+                                    '<div class="upload thumb thumb-hover"><span data-id="',id,'" class="rm-upload glyphicon glyphicon-remove" v-on:click="removeImg"></span></div>',
+                                '</div>'
+                            ].join(''),
+                            methods : {
+                                removeImg : function(e) {
+                                    vm.removeImg(e.target.dataset.id);
+                                }
+                            }
+                        });
+                        var thumb = new ThumbComponent().$mount();
+
+                        document.getElementById(vm.outputId).insertBefore(thumb.$el, null);
 
                     };
                 })(file);
@@ -83,7 +96,13 @@
                 div.innerHTML = '<span class="glyphicon glyphicon-remove"></span>'
 
                 document.getElementById(this.outputId).insertBefore(div, null);
+            },
+            removeImg : function(id) {
+                var thumb = document.getElementById('thumb-' + id);
+                thumb.parentNode.removeChild(thumb);
+                this.files_id.splice(this.files_id.indexOf(id), 1);
             }
         }
     }
+
 </script>
