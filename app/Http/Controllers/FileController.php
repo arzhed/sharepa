@@ -26,6 +26,10 @@ class FileController extends Controller
             $fileModel->path      = $stored;
 
             $user->files()->save($fileModel);
+
+            return $fileModel;
         }
+
+        return response('Upload failed', 422);
     }
 }

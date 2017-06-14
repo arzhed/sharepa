@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="photos" class="col-md-4 control-label">Photos</label>
                                 <div class="col-md-6">
-                                    <upload upload-id="photos" upload-url="/api/upload"></upload>
+                                    <upload upload-id="photos" upload-url="/api/upload" v-bind:files="files" v-on:update:files="uploadedFiles"></upload>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -63,7 +63,8 @@ module.exports = {
             price : 1,
             short_description : '',
             long_description : '',
-            photos: {}
+            photos: {},
+            files : []
         }
     },
     validations : {
@@ -79,6 +80,9 @@ module.exports = {
         price : {}
     },
     methods : {
+        uploadedFiles: function(val) {
+            this.files = val;
+        },
         submit : function(e) {
             e.preventDefault();
             var vm = this;
@@ -87,10 +91,11 @@ module.exports = {
                 'price'             : vm.price,
                 'short_description' : vm.short_description,
                 'long_description'  : vm.long_description,
+                'files'             : vm.files
             }).then(function(response) {
                 vm.$router.push({path: '/guide/adventures'});
             }).catch(function(error) {
-            })
+            });
         }
     }
 }

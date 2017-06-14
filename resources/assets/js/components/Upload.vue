@@ -7,15 +7,10 @@
 
 <script>
     module.exports = {
-        mounted : function() {
-            console.log('upid', this.uploadId)
-        },
-        props: ['uploadId', 'uploadUrl'],
+        props: ['uploadId', 'uploadUrl', 'files'],
         data : function() {
             return {
-                files : {
-                    last : -1
-                }
+                files_id : []
             }
         },
         computed : {
@@ -31,22 +26,26 @@
                 var files = document.getElementById(this.uploadId).files;
 
                 for (var i = 0, f; f = files[i]; i++) {
-                    this.files[++this.files.last] = f;
                     // Only process image files.
                     if (!f.type.match('image.*')) {
-                        continue;
+                        // continue;
                     }
 
-                    this.upload(f);
+                    this.upload(f, i, files.length);
                 }
             },
-            upload : function(file) {
+            upload : function(file, i, length) {
                 var vm = this;
                 let data = new FormData();
                 data.append('file', file);
 
                 axios.post(this.uploadUrl, data).then(function (response) {
                     vm.renderThumbs(file);
+                    vm.files_id.push(response.data.id);
+
+                    if (i == length - 1) {
+                        vm.$emit('update:files', vm.files_id);
+                    }
                 }).catch(function() {
                     vm.renderThumbError();
                 });
