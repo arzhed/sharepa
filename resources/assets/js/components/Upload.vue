@@ -1,7 +1,9 @@
 <template>
     <div>
-        <output :id="outputId" class="upload"></output>
-        <input :id="uploadId" type="file" multiple v-on:change="filesAppended"></input>
+        <output :id="outputId" class="upload">
+        </output>
+        <div class="upload thumb thumb-custom add text-primary" v-on:click="triggerBrowse"><span class="glyphicon glyphicon-plus"></span></div>
+        <input :id="uploadId" type="file" multiple v-on:change="filesAppended" style="display:none"></input>
     </div>
 </template>
 
@@ -19,6 +21,9 @@
             }
         },
         methods : {
+            triggerBrowse : function() {
+                document.getElementById(this.uploadId).click();
+            },
             filesAppended : function() {
                 var output = document.getElementById(this.outputId);
                 output.innerHTML = '';
@@ -71,7 +76,7 @@
             },
             renderThumbError : function() {
                 var span = document.createElement('span');
-                span.className = "thumb-error thumb upload";
+                span.className = "thumb-custom thumb-error thumb upload";
                 span.innerHTML = '<span class="glyphicon glyphicon-remove"></span>'
 
                 document.getElementById(this.outputId).insertBefore(span, null);

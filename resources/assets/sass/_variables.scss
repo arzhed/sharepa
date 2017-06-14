@@ -36,3 +36,6 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+$primary-color: #2579a9;
+$light-primary: lighten($primary-color, 20%);

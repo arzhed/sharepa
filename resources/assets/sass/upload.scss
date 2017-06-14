@@ -6,15 +6,24 @@
         margin-right: 0.3rem;
     }
 
-    &.thumb-error {
+    &.thumb-custom {
         width: 10rem;
         background-color: lightgray;
         display: inline-block;
         padding-top: 4rem;
+    }
+
+    &.thumb-error {
         color: lightcoral;
+    }
+
+    &.add {
+        text-align: center;
+        cursor: pointer;
     }
 }
 
 output.upload {
     text-align: center;
+    display: inline-block;
 }
