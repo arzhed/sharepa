@@ -62,12 +62,15 @@
                 // Closure to capture the file information.
                 reader.onload = (function(theFile) {
                     return function(e) {
-                    // Render thumbnail.
-                    var span = document.createElement('span');
-                    span.innerHTML = ['<img class="thumb upload" src="', e.target.result,
-                                    '" title="', escape(theFile.name), '"/>'].join('');
+                        // Render thumbnail.
+                        var div = document.createElement('div');
+                        div.className = "upload thumb-container position-relative";
+                        div.innerHTML = ['<img class="thumb thumb-file upload" src="', e.target.result,
+                                        '" title="', escape(theFile.name), '"/>'].join('');
+                        div.innerHTML += '<div class="upload thumb thumb-hover"><span class="rm-upload glyphicon glyphicon-remove"></span></div>';
 
-                    document.getElementById(vm.outputId).insertBefore(span, null);
+                        document.getElementById(vm.outputId).insertBefore(div, null);
+
                     };
                 })(file);
 
@@ -75,11 +78,11 @@
                 reader.readAsDataURL(file);
             },
             renderThumbError : function() {
-                var span = document.createElement('span');
-                span.className = "thumb-custom thumb-error thumb upload";
-                span.innerHTML = '<span class="glyphicon glyphicon-remove"></span>'
+                var div = document.createElement('div');
+                div.className = "thumb thumb-custom thumb-file thumb-error upload position-relative";
+                div.innerHTML = '<span class="glyphicon glyphicon-remove"></span>'
 
-                document.getElementById(this.outputId).insertBefore(span, null);
+                document.getElementById(this.outputId).insertBefore(div, null);
             }
         }
     }

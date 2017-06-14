@@ -1,9 +1,12 @@
+$marginBottom : 0.3rem;
+$marginRight : 0.3rem;
+
 .upload {
 
     &.thumb {
         height: 10rem;
-        margin-bottom: 0.3rem;
-        margin-right: 0.3rem;
+        margin-bottom: $marginBottom;
+        margin-right: $marginRight;
     }
 
     &.thumb-custom {
@@ -17,9 +20,64 @@
         color: lightcoral;
     }
 
+    &.thumb-container {
+
+        &:hover .thumb-hover {
+            display: inline-block;
+            background-color: rgba(1,1,1,0.7);
+        }
+
+        .thumb-hover {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            height: calc(100% - #{$marginBottom});
+            width: calc(100% - #{$marginRight});
+
+            span {
+                top: 35%;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+
+                font-weight: bold;
+
+                border-radius: 50%;
+                color: white;
+                border : 1px solid;
+                width: 2.5rem;
+                height: 2.5rem;
+                padding-top: 0.4rem;
+                @if variable-exists(error-color) {
+                    color: $error-color;
+                    border-color: $error-color;
+                } @else {
+                    color : '#d54c4c';
+                    border-color: '#d54c4c';
+                }
+                font-size: 1.5rem;
+
+                &:hover {
+                    cursor: pointer;
+                    border: 0px;
+                    font-size: 2.2rem;
+                    @if variable-exists(error-color) {
+                        color: darken($error-color, 10%);
+                    } @else {
+                        color : '#d54c4c';
+                    }
+                }
+            }
+        }
+
+    }
+
     &.add {
-        text-align: center;
         cursor: pointer;
+        text-align: center;
         @if variable-exists(primary-color) {
             color: lighten($primary-color, 20%);
         } @else {
@@ -34,9 +92,14 @@
             }
         }
     }
+
 }
 
 output.upload {
     text-align: center;
     display: inline-block;
+}
+
+.position-relative {
+    position: relative;
 }
