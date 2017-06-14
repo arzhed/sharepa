@@ -20,6 +20,19 @@
     &.add {
         text-align: center;
         cursor: pointer;
+        @if variable-exists(primary-color) {
+            color: lighten($primary-color, 20%);
+        } @else {
+            color : '#59acdb';
+        }
+        &:hover {
+            background-color: darken(lightgray, 10%);
+            @if variable-exists(primary-color) {
+                color: lighten($primary-color, 10%);
+            } @else {
+                color : '#2579a9';
+            }
+        }
     }
 }
 
