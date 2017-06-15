@@ -1,10 +1,25 @@
 $marginBottom : 0.3rem;
 $marginRight : 0.3rem;
 
+$primary-color : #2579a9;
+$error-color : #d54c4c;
+
 .upload {
 
+    &.with-cover {
+        .thumb-container:first-child {
+            display: block;
+            .thumb-file {
+                height: 30rem;
+            }
+            span.star {
+                display: none;
+            }
+        }
+    }
+
     &.thumb {
-        height: 10rem;
+        height: 14rem;
         margin-bottom: $marginBottom;
         margin-right: $marginRight;
     }
@@ -24,7 +39,7 @@ $marginRight : 0.3rem;
         .thumb-hover {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-around;
             width: 100%;
 
             display: none;
@@ -39,29 +54,25 @@ $marginRight : 0.3rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                
+
                 border-radius: 50%;
                 border : 1px solid;
                 width: 2.5rem;
                 height: 2.5rem;
-                @if variable-exists(error-color) {
-                    color: $error-color;
-                    border-color: $error-color;
-                } @else {
-                    color : '#d54c4c';
-                    border-color: '#d54c4c';
-                }
                 font-size: 1.5rem;
+                &.remove {
+                    color : $error-color;
+                    border-color: $error-color;
+                }
+                &.star {
+                    color : $primary-color;
+                    border-color: $primary-color;
+                }
 
                 &:hover {
                     cursor: pointer;
                     border: 0px;
                     font-size: 2.2rem;
-                    @if variable-exists(error-color) {
-                        color: darken($error-color, 10%);
-                    } @else {
-                        color : '#d54c4c';
-                    }
                 }
             }
         }
@@ -71,7 +82,7 @@ $marginRight : 0.3rem;
     &.add {
         display: inline-block;
         .thumb-custom {
-            width: 10rem;
+            width: 14rem;
             background-color: lightgray;
             font-size: 1.5rem;
 
@@ -80,19 +91,11 @@ $marginRight : 0.3rem;
             align-items: center;
             justify-content: center;
 
-            @if variable-exists(primary-color) {
-                color: lighten($primary-color, 20%);
-            } @else {
-                color : '#59acdb';
-            }
+            color: lighten($primary-color, 20%);
             &:hover {
                 font-size: 2.2rem;
                 background-color: darken(lightgray, 10%);
-                @if variable-exists(primary-color) {
-                    color: lighten($primary-color, 10%);
-                } @else {
-                    color : '#2579a9';
-                }
+                color: lighten($primary-color, 10%);
             }
         }
     }

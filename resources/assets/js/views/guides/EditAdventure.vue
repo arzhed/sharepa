@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="photos" class="col-md-3 control-label">Photos</label>
                                 <div class="col-md-9">
-                                    <upload upload-id="photos" upload-url="/api/upload" v-bind:files="files" v-on:update:files="uploadedFiles"></upload>
+                                    <upload upload-id="photos" upload-url="/api/upload" cover="true" v-bind:files="files" v-on:update:files="uploadedFiles"></upload>
                                 </div>
                             </div>
                             <div class="form-group">

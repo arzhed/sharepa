@@ -11,7 +11,12 @@
 
 
     module.exports = {
-        props: ['uploadId', 'uploadUrl', 'files'],
+        props: ['uploadId', 'uploadUrl', 'files', 'cover'],
+        mounted : function() {
+            if (this.cover == 'true') {
+                document.getElementById(this.outputId).className += ' with-cover';
+            }
+        },
         data : function() {
             return {
                 files_id : []
@@ -72,12 +77,18 @@
                             template : [
                                 '<div id="thumb-', id, '" class="upload thumb-container position-relative">',
                                     '<img class="thumb thumb-file upload" src="', e.target.result,'" title="', escape(theFile.name), '"/>',
-                                    '<div class="upload thumb thumb-hover"><span data-id="',id,'" class="rm-upload glyphicon glyphicon-remove" v-on:click="removeImg"></span></div>',
+                                    '<div class="upload thumb thumb-hover">',
+                                        '<span data-id="',id,'" class="rm-upload glyphicon glyphicon-remove remove" v-on:click="removeImg"></span>',
+                                        '<span data-id="',id,'" class="rm-upload glyphicon glyphicon-star star" v-on:click="starImg"></span>',
+                                    '</div>',
                                 '</div>'
                             ].join(''),
                             methods : {
                                 removeImg : function(e) {
                                     vm.removeImg(e.target.dataset.id);
+                                },
+                                starImg : function(e) {
+                                    vm.starImg(e.target.dataset.id);
                                 }
                             }
                         });
@@ -102,6 +113,13 @@
                 var thumb = document.getElementById('thumb-' + id);
                 thumb.parentNode.removeChild(thumb);
                 this.files_id.splice(this.files_id.indexOf(id), 1);
+            },
+            starImg : function(id) {
+                var thumb = document.getElementById('thumb-' + id);
+                thumb.parentNode.removeChild(thumb);
+
+                var output = document.getElementById(this.outputId);
+                output.insertBefore(thumb, document.querySelector('output div'));
             }
         }
     }
