@@ -1,8 +1,8 @@
 <template>
     <div>
         <output :id="outputId" class="upload">
+            <div :id="addId" class="upload add text-primary" v-on:click="triggerBrowse"><div class="upload thumb thumb-custom text-primary"><span class="glyphicon glyphicon-plus"></span></div></div>
         </output>
-        <div class="upload thumb thumb-custom add text-primary" v-on:click="triggerBrowse"><span class="glyphicon glyphicon-plus"></span></div>
         <input :id="uploadId" type="file" multiple v-on:change="filesAppended" style="display:none"></input>
     </div>
 </template>
@@ -20,6 +20,9 @@
         computed : {
             outputId : function() {
                 return this.uploadId + '-list';
+            },
+            addId : function() {
+                return this.uploadId + '-add';
             }
         },
         methods : {
@@ -27,8 +30,6 @@
                 document.getElementById(this.uploadId).click();
             },
             filesAppended : function() {
-                var output = document.getElementById(this.outputId);
-                output.innerHTML = '';
 
                 var files = document.getElementById(this.uploadId).files;
 
@@ -82,7 +83,7 @@
                         });
                         var thumb = new ThumbComponent().$mount();
 
-                        document.getElementById(vm.outputId).insertBefore(thumb.$el, null);
+                        document.getElementById(vm.outputId).insertBefore(thumb.$el, document.getElementById(vm.addId));
 
                     };
                 })(file);
