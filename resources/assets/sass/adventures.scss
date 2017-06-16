@@ -1,0 +1,23 @@
+.adventure-item {
+    display : inline-block;
+    width: 100%;
+    .cover {
+        width: 100%;
+        height: 15rem;
+        background-color: black;
+        overflow: hidden;
+        img {
+            height : 15rem;
+        }
+    }
+    .body {
+        background-color: white;
+        h3 {
+            margin : 0;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}

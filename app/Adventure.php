@@ -15,4 +15,8 @@ class Adventure extends Model
     {
         return $this->belongsToMany('App\File', 'adventures_photos', 'adventure_id', 'file_id');
     }
+
+    public function cover() {
+        return $this->hasOne('App\File', 'id', 'cover_photo');
+    }
 }

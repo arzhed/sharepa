@@ -29,6 +29,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('upload', 'FileController@upload');
 
     Route::resource('adventure', 'AdventureController', ['only' => [
-        'store'
+        'store', 'index'
     ]]);
 });

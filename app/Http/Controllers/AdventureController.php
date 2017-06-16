@@ -13,9 +13,15 @@ class AdventureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = \Auth::user();
+        if ($request->exists('guide') && \Auth::check()) {
+            $user->adventures->each(function(&$a) {
+                $a->cover;
+            });
+            return $user->adventures;
+        }
     }
 
     /**
