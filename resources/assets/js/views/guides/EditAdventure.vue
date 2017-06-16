@@ -91,7 +91,8 @@ module.exports = {
                 'price'             : vm.price,
                 'short_description' : vm.short_description,
                 'long_description'  : vm.long_description,
-                'files'             : vm.files
+                'files'             : vm.files,
+                'cover_photo'       : document.querySelector('#photos-list .thumb-container:first-child').id.replace('thumb-', '')
             }).then(function(response) {
                 vm.$router.push({path: '/guide/adventures'});
             }).catch(function(error) {

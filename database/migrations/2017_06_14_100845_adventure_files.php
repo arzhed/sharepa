@@ -20,6 +20,10 @@ class AdventureFiles extends Migration
 
             $table->foreign('adventure_id')->references('id')->on('adventures')->onDelete('cascade');
         });
+
+        Schema::table('adventures', function($table) {
+            $table->integer('cover_photo')->after('description')->nullable();
+        });
     }
 
     /**
@@ -30,5 +34,9 @@ class AdventureFiles extends Migration
     public function down()
     {
         Schema::drop('adventures_photos');
+
+        Schema::table('adventures', function($table) {
+            $table->dropColumn('cover_photo');
+        });
     }
 }

@@ -119,7 +119,7 @@
                 thumb.parentNode.removeChild(thumb);
 
                 var output = document.getElementById(this.outputId);
-                output.insertBefore(thumb, document.querySelector('output div'));
+                output.insertBefore(thumb, document.querySelector('output#' + this.outputId +' div'));
             }
         }
     }

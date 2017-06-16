@@ -43,7 +43,8 @@ class AdventureController extends Controller
             'price'             => 'int|required|min:1',
             'short_description' => 'string|required',
             'long_description'  => 'string|required',
-            'files'             => 'array'
+            'files'             => 'array',
+            'cover_photo'       => 'integer|exists:files,id'
         ]);
 
         $adventure = new Adventure;
@@ -51,13 +52,13 @@ class AdventureController extends Controller
         $adventure->price            = $request->price;
         $adventure->description      = $request->short_description;
         $adventure->long_description = $request->long_description;
+        $adventure->cover_photo      = $request->cover_photo;
 
         $user->adventures()->save($adventure);
 
         foreach ($request->get('files') as $key => $value) {
             $adventure->photos()->attach($value);
         }
-        // $adventure->photos;
 
         return $adventure;
     }
