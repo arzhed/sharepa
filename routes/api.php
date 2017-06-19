@@ -25,4 +25,10 @@ Route::group(['middleware' => 'auth:api'], function () {
         'update', 'show'
     ]]);
     Route::post('user/getByMail', 'UserController@getByMail');
+
+    Route::post('upload', 'FileController@upload');
+
+    Route::resource('adventure', 'AdventureController', ['only' => [
+        'store', 'index'
+    ]]);
 });

@@ -36,3 +36,12 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+$primary-color: #2579a9;
+$light-primary: lighten($primary-color, 20%);
+
+// $error-color : #d95d5d;
+$error-color : #d54c4c;
+$dark-error : darken(#d54c4c, 20%);
+
+$darkgrey : #474444;

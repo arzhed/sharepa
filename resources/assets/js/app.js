@@ -30,6 +30,8 @@ var routes = require('./routes.js');
 var mixins = require('./mixins.js');
 window.mixin = mixins;
 
+Vue.component('upload', require('./components/Upload.vue'))
+Vue.component('adventure', require('./components/Adventure.vue'))
 
 const app = new Vue({
     el: '#app',

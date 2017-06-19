@@ -44,7 +44,29 @@ var routes = [
                 next(false);
             }
         },
-    }
+    },
+    {
+        path: '/guide/adventures',
+        component: require('./views/guides/Adventures.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn()) {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    },
+    {
+        path: '/guide/adventures/create',
+        component: require('./views/guides/EditAdventure.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn()) {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    },
 ];
 
 module.exports = new VueRouter({
