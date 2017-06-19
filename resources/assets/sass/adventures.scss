@@ -12,8 +12,19 @@
     }
     .body {
         background-color: white;
+        height: 20rem;
+        padding-top: 2rem;
         h3 {
             margin : 0;
+            margin-bottom: 1rem;
+        }
+        .more {
+            bottom: 0.2rem;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            color: #2579a9;
         }
     }
 

@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label for="short_description" class="col-md-3 control-label">Short Description</label>
                                 <div class="col-md-7">
-                                    <textarea v-on:input="$v.short_description.$touch" id="short_description" v-model.trim="short_description" class="form-control" name="short_description" placeholder=""></textarea>
+                                    <textarea v-on:input="$v.short_description.$touch" id="short_description" v-model.trim="short_description" class="form-control" name="short_description" placeholder="150 characters max" maxlength="150"></textarea>
                                     <span class="form-error" v-show="$v.short_description.$dirty && !$v.short_description.required">Short Description is required</span>
                                 </div>
                             </div>

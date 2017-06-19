@@ -8,6 +8,7 @@
                 <div class="body">
                     <h3>{{model.title}}</h3>
                     <p>{{model.description}}</p>
+                    <div class="more"> + see more </div>
                 </div>
             </div>
         </div>
