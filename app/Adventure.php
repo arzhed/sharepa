@@ -11,7 +11,7 @@ class Adventure extends Model
     ];
 
 
-    public function photos()
+    public function files()
     {
         return $this->belongsToMany('App\File', 'adventures_photos', 'adventure_id', 'file_id');
     }

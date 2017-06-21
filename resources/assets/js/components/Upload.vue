@@ -1,6 +1,7 @@
 <template>
     <div>
         <output :id="outputId" class="upload">
+            <upload-thumb v-for="photo in files" :key="photo.id" :id="photo.id" :src="photo.path" :name="photo.name" :img-prefix="imgPrefix" v-on:remove-img="removeImg" v-on:star-img="starImg"></upload-thumb>
             <div :id="addId" class="upload add text-primary" v-on:click="triggerBrowse"><div class="upload thumb thumb-custom text-primary"><span class="glyphicon glyphicon-plus"></span></div></div>
         </output>
         <input :id="uploadId" type="file" multiple v-on:change="filesAppended" style="display:none"></input>
@@ -11,15 +12,10 @@
 
 
     module.exports = {
-        props: ['uploadId', 'uploadUrl', 'files', 'cover'],
+        props: ['uploadId', 'uploadUrl', 'fileIds', 'cover', 'imgPrefix', 'oldFiles'],
         mounted : function() {
             if (this.cover == 'true') {
                 document.getElementById(this.outputId).className += ' with-cover';
-            }
-        },
-        data : function() {
-            return {
-                files_id : []
             }
         },
         computed : {
@@ -28,6 +24,11 @@
             },
             addId : function() {
                 return this.uploadId + '-add';
+            },
+            files : function() {
+                if (this.oldFiles !== undefined)
+                    return this.oldFiles;
+                return [];
             }
         },
         methods : {
@@ -35,7 +36,6 @@
                 document.getElementById(this.uploadId).click();
             },
             filesAppended : function() {
-
                 var files = document.getElementById(this.uploadId).files;
 
                 for (var i = 0, f; f = files[i]; i++) {
@@ -53,54 +53,15 @@
                 data.append('file', file);
 
                 axios.post(this.uploadUrl, data).then(function (response) {
-                    vm.renderThumbs(file, response.data.id);
-                    vm.files_id.push(response.data.id);
+                    vm.files.push(response.data);
+                    vm.fileIds.push(response.data.id);
 
                     if (i == length - 1) {
-                        vm.$emit('update:files', vm.files_id);
+                        vm.$emit('update:file-ids', vm.fileIds);
                     }
                 }).catch(function() {
                     vm.renderThumbError();
                 });
-            },
-            renderThumbs : function(file, id) {
-                var vm = this;
-                var reader = new FileReader();
-
-                // Closure to capture the file information.
-                reader.onload = (function(theFile) {
-                    return function(e) {
-                        // Render thumbnail.
-
-                        //We define a new component to be able to compile it in vue and have access to events and context
-                        var ThumbComponent = Vue.extend({
-                            template : [
-                                '<div id="thumb-', id, '" class="upload thumb-container position-relative">',
-                                    '<img class="thumb thumb-file upload" src="', e.target.result,'" title="', escape(theFile.name), '"/>',
-                                    '<div class="upload thumb thumb-hover">',
-                                        '<span data-id="',id,'" class="rm-upload glyphicon glyphicon-remove remove" v-on:click="removeImg"></span>',
-                                        '<span data-id="',id,'" class="rm-upload glyphicon glyphicon-star star" v-on:click="starImg"></span>',
-                                    '</div>',
-                                '</div>'
-                            ].join(''),
-                            methods : {
-                                removeImg : function(e) {
-                                    vm.removeImg(e.target.dataset.id);
-                                },
-                                starImg : function(e) {
-                                    vm.starImg(e.target.dataset.id);
-                                }
-                            }
-                        });
-                        var thumb = new ThumbComponent().$mount();
-
-                        document.getElementById(vm.outputId).insertBefore(thumb.$el, document.getElementById(vm.addId));
-
-                    };
-                })(file);
-
-                // Read in the image file as a data URL.
-                reader.readAsDataURL(file);
             },
             renderThumbError : function() {
                 var div = document.createElement('div');
@@ -110,18 +71,57 @@
                 document.getElementById(this.outputId).insertBefore(div, null);
             },
             removeImg : function(id) {
-                var thumb = document.getElementById('thumb-' + id);
-                thumb.parentNode.removeChild(thumb);
-                this.files_id.splice(this.files_id.indexOf(id), 1);
+                for (var i in this.files) {
+                    if (this.files[i].id == id) {
+                        this.files.splice(i, 1);
+                    }
+                }
+                this.fileIds.splice(this.fileIds.indexOf(id), 1);
+                this.$emit('update:file-ids', this.fileIds);
             },
             starImg : function(id) {
-                var thumb = document.getElementById('thumb-' + id);
-                thumb.parentNode.removeChild(thumb);
-
-                var output = document.getElementById(this.outputId);
-                output.insertBefore(thumb, document.querySelector('output#' + this.outputId +' div'));
+                for (var i in this.files) {
+                    if (this.files[i].id == id) {
+                        var newCover = this.files[i];
+                        this.files.splice(i, 1);
+                        this.files.unshift(newCover);
+                    }
+                }
+                this.fileIds.splice(this.fileIds.indexOf(id), 1);
+                this.fileIds.unshift(id);
+                this.$emit('update:file-ids', this.fileIds);
             }
         }
     }
+
+    Vue.component('upload-thumb', Vue.extend({
+        template : [
+            '<div :id="thumbId" class="upload thumb-container position-relative">',
+            '<img class="thumb thumb-file upload" :src="dsrc" :title="name"/>',
+            '<div class="upload thumb thumb-hover">',
+            '<span :data-id="id" class="rm-upload glyphicon glyphicon-remove remove" v-on:click="removeImg"></span>',
+            '<span :data-id="id" class="rm-upload glyphicon glyphicon-star star" v-on:click="starImg"></span>',
+            '</div>',
+            '</div>'
+        ].join(''),
+        props : ['id', 'src', 'name', 'imgPrefix'],
+        computed : {
+            thumbId : function() {
+                return 'thumb-' + this.id;
+            },
+            dsrc : function() {
+                var prefix = this.imgPrefix == undefined ? '' : this.imgPrefix;
+                return prefix + '/' + this.src;
+            }
+        },
+        methods : {
+            removeImg : function(e) {
+                this.$emit('remove-img', e.target.dataset.id);
+            },
+            starImg : function(e) {
+                this.$emit('star-img', e.target.dataset.id);
+            }
+        }
+    }));
 
 </script>

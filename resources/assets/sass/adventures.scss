@@ -1,34 +1,37 @@
-.adventure-item {
-    display : inline-block;
-    width: 100%;
-    .cover {
+.adventure-item-container {
+    margin-bottom: 3rem;
+    .adventure-item {
+        display : inline-block;
         width: 100%;
-        height: 15rem;
-        background-color: black;
-        overflow: hidden;
-        img {
-            height : 15rem;
+        .cover {
+            width: 100%;
+            height: 15rem;
+            background-color: black;
+            overflow: hidden;
+            img {
+                height : 15rem;
+            }
         }
-    }
-    .body {
-        background-color: white;
-        height: 20rem;
-        padding-top: 2rem;
-        h3 {
-            margin : 0;
-            margin-bottom: 1rem;
+        .body {
+            background-color: white;
+            height: 20rem;
+            padding-top: 2rem;
+            h3 {
+                margin : 0;
+                margin-bottom: 1rem;
+            }
+            .more {
+                bottom: 0.2rem;
+                position: absolute;
+                margin: auto;
+                left: 0;
+                right: 0;
+                color: #2579a9;
+            }
         }
-        .more {
-            bottom: 0.2rem;
-            position: absolute;
-            margin: auto;
-            left: 0;
-            right: 0;
-            color: #2579a9;
-        }
-    }
 
-    &:hover {
-        cursor: pointer;
+        &:hover {
+            cursor: pointer;
+        }
     }
 }

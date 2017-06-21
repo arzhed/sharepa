@@ -67,6 +67,17 @@ var routes = [
             }
         },
     },
+    {
+        path: '/guide/adventure/:id',
+        component: require('./views/guides/EditAdventure.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn()) {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    },
 ];
 
 module.exports = new VueRouter({

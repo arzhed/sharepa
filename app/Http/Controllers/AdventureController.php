@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Adventure;
 
+use Validator;
+
 class AdventureController extends Controller
 {
     /**
@@ -47,7 +49,7 @@ class AdventureController extends Controller
         $this->validate($request, [
             'title'             => 'string|required',
             'price'             => 'int|required|min:1',
-            'short_description' => 'string|required',
+            'description'       => 'string|required',
             'long_description'  => 'string|required',
             'files'             => 'array',
             'cover_photo'       => 'integer|exists:files,id'
@@ -56,15 +58,16 @@ class AdventureController extends Controller
         $adventure = new Adventure;
         $adventure->title            = $request->title;
         $adventure->price            = $request->price;
-        $adventure->description      = $request->short_description;
+        $adventure->description      = $request->description;
         $adventure->long_description = $request->long_description;
         $adventure->cover_photo      = $request->cover_photo;
 
         $user->adventures()->save($adventure);
 
         foreach ($request->get('files') as $key => $value) {
-            $adventure->photos()->attach($value);
+            $adventure->files()->attach($value['id']);
         }
+        die;
 
         return $adventure;
     }
@@ -77,7 +80,17 @@ class AdventureController extends Controller
      */
     public function show($id)
     {
-        //
+        $valid = Validator::make([
+            'id' => $id
+        ], [
+            'id' => 'required|exists:adventures'
+        ]);
+
+        if ($valid->fails()) {
+            return response('Adventure does not exist', 404);
+        }
+
+        return Adventure::find($id)->load('files');
     }
 
     /**
@@ -100,7 +113,32 @@ class AdventureController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params       = $request->all();
+        $params['id'] = $id;
+
+        $valid = Validator::make($params, [
+            'id'                => 'required|exists:adventures',
+            'title'             => 'string',
+            'price'             => 'int|min:1',
+            'description'       => 'string',
+            'long_description'  => 'string',
+            'files'             => 'array',
+            'cover_photo'       => 'integer|exists:files,id'
+        ]);
+
+        if ($valid->fails()) {
+            return response('Something went wrong', 400);
+        }
+
+        unset($params['id']);
+
+        $files = $params['files'];
+        unset($params['files']);
+
+        $adventure = Adventure::find($id);
+        $adventure->update($params);
+
+        return $adventure;
     }
 
     /**

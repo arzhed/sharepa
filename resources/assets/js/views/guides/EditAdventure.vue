@@ -9,14 +9,14 @@
                             <div class="form-group">
                                 <label for="title" class="col-md-3 control-label">Title</label>
                                 <div class="col-md-7">
-                                    <input type="text" v-on:input="$v.title.$touch" id="title" v-model.trim="title" class="form-control" name="title" autofocus="" placeholder=""></input>
-                                    <span class="form-error" v-show="$v.title.$dirty && !$v.title.required">Title is required</span>
+                                    <input type="text" v-on:input="$v.model.title.$touch" id="title" v-model.trim="model.title" class="form-control" name="title" autofocus="" placeholder=""></input>
+                                    <span class="form-error" v-show="$v.model.title.$dirty && !$v.model.title.required">Title is required</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="photos" class="col-md-3 control-label">Photos</label>
                                 <div class="col-md-9">
-                                    <upload upload-id="photos" upload-url="/api/upload" cover="true" v-bind:files="files" v-on:update:files="uploadedFiles"></upload>
+                                    <upload upload-id="photos" upload-url="/api/upload" cover="true" img-prefix="/storage" :file-ids="photo_ids" v-on:update:file-ids="updateFiles" :old-files="model.files"></upload>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -24,21 +24,21 @@
                                 <div class="col-md-7">
                                     <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <input type="number" min="1" v-on:input="$v.price.$touch" id="price" v-model.trim="price" class="form-control" name="price"></input>
+                                        <input type="number" min="1" v-on:input="$v.model.price.$touch" id="price" v-model.trim="model.price" class="form-control" name="price"></input>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="short_description" class="col-md-3 control-label">Short Description</label>
+                                <label for="description" class="col-md-3 control-label">Short Description</label>
                                 <div class="col-md-7">
-                                    <textarea v-on:input="$v.short_description.$touch" id="short_description" v-model.trim="short_description" class="form-control" name="short_description" placeholder="150 characters max" maxlength="150"></textarea>
-                                    <span class="form-error" v-show="$v.short_description.$dirty && !$v.short_description.required">Short Description is required</span>
+                                    <textarea v-on:input="$v.model.description.$touch" id="description" v-model.trim="model.description" class="form-control" name="description" placeholder="150 characters max" maxlength="150"></textarea>
+                                    <span class="form-error" v-show="$v.model.description.$dirty && !$v.model.description.required">Short Description is required</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="long_description" class="col-md-3 control-label">In details</label>
                                 <div class="col-md-7">
-                                    <textarea v-on:input="$v.long_description.$touch" id="long_description" v-model.trim="long_description" class="form-control" name="long_description" placeholder=""></textarea>
+                                    <textarea v-on:input="$v.model.long_description.$touch" id="long_description" v-model.trim="model.long_description" class="form-control" name="long_description" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -57,46 +57,76 @@
 <script>
 
 module.exports = {
+    created : function() {
+        //if we are EDITING an existing adventure, NOT CREATING
+        if (this.$route.params.id != undefined) {
+            var vm = this;
+            axios.get('/api/adventure/' + this.$route.params.id).then(function(response) {
+                for (var i in response.data.files) {
+                    if (response.data.cover_photo != null && response.data.files[i].id == response.data.cover_photo && i!=0) {
+                        var file = response.data.files[i];
+                        vm.photo_ids.unshift(file.id);
+                        response.data.files.splice(i, 1);
+                        response.data.files.unshift(file);
+                    }
+                }
+                vm.model = response.data;
+            });
+        }
+    },
     data : function() {
         return {
-            title : '',
-            price : 1,
-            short_description : '',
-            long_description : '',
-            photos: {},
-            files : []
+            model : {
+                title : '',
+                price : 1,
+                description : '',
+                long_description : '',
+                files : [],
+                cover_photo : null
+            },
+            photo_ids : []
         }
     },
     validations : {
-        title: {
-            required: Validator.required
-        },
-        short_description: {
-            required: Validator.required
-        },
-        long_description: {
-            required: Validator.required
-        },
-        price : {}
+        model : {
+            title: {
+                required: Validator.required
+            },
+            description: {
+                required: Validator.required
+            },
+            long_description: {
+                required: Validator.required
+            },
+            price : {}
+        }
     },
     methods : {
-        uploadedFiles: function(val) {
-            this.files = val;
+        updateFiles: function(val) {
+            this.photo_ids = val;
         },
         submit : function(e) {
             e.preventDefault();
             var vm = this;
-            axios.post('/api/adventure', {
-                'title'             : vm.title,
-                'price'             : vm.price,
-                'short_description' : vm.short_description,
-                'long_description'  : vm.long_description,
-                'files'             : vm.files,
-                'cover_photo'       : document.querySelector('#photos-list .thumb-container:first-child').id.replace('thumb-', '')
-            }).then(function(response) {
+
+            var callback = function(response) {
                 vm.$router.push({path: '/guide/adventures'});
-            }).catch(function(error) {
-            });
+            };
+
+            var params = {
+                'title'             : vm.model.title,
+                'price'             : vm.model.price,
+                'description'       : vm.model.description,
+                'long_description'  : vm.model.long_description,
+                'files'             : this.photo_ids,
+                'cover_photo'       : this.photo_ids[0]
+            };
+
+            if (this.$route.params.id != undefined) {
+                axios.put('/api/adventure/' + this.$route.params.id, params).then(callback);
+            } else {
+                axios.post('/api/adventure', params).then(callback);
+            }
         }
     }
 }
