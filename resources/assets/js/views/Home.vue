@@ -12,7 +12,6 @@
 <script>
 module.export = {
     mounted : function() {
-        console.log('mou')
     }
 }
 

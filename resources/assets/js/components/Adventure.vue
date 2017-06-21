@@ -1,5 +1,5 @@
 <template>
-    <div class="adventure-container col-lg-3 col-md-4">
+    <div class="adventure-item-container col-lg-3 col-md-4">
         <router-link class="nostyle" :to="to" v-bind:model='model'>
             <div class="adventure-item">
                 <div class="adventure-item-img">

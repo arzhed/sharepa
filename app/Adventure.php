@@ -19,4 +19,11 @@ class Adventure extends Model
     public function cover() {
         return $this->hasOne('App\File', 'id', 'cover_photo');
     }
+
+    public function update(array $attributes = [], array $options = [])
+    {
+        parent::update($attributes, $options);
+
+        $this->files()->sync($attributes['files']);
+    }
 }

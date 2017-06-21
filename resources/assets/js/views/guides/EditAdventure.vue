@@ -62,12 +62,14 @@ module.exports = {
         if (this.$route.params.id != undefined) {
             var vm = this;
             axios.get('/api/adventure/' + this.$route.params.id).then(function(response) {
-                for (var i in response.data.files) {
+                for (var i = 0 ; i < response.data.files.length ; i++) {
+                    var file = response.data.files[i];
                     if (response.data.cover_photo != null && response.data.files[i].id == response.data.cover_photo && i!=0) {
-                        var file = response.data.files[i];
                         vm.photo_ids.unshift(file.id);
-                        response.data.files.splice(i, 1);
+                        response.data.files.splice(parseInt(i), 1);
                         response.data.files.unshift(file);
+                    } else {
+                        vm.photo_ids.push(file.id);
                     }
                 }
                 vm.model = response.data;

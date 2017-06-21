@@ -67,7 +67,6 @@ class AdventureController extends Controller
         foreach ($request->get('files') as $key => $value) {
             $adventure->files()->attach($value['id']);
         }
-        die;
 
         return $adventure;
     }
@@ -131,9 +130,6 @@ class AdventureController extends Controller
         }
 
         unset($params['id']);
-
-        $files = $params['files'];
-        unset($params['files']);
 
         $adventure = Adventure::find($id);
         $adventure->update($params);

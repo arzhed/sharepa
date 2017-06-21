@@ -71,6 +71,7 @@
                 document.getElementById(this.outputId).insertBefore(div, null);
             },
             removeImg : function(id) {
+                id = parseInt(id);
                 for (var i in this.files) {
                     if (this.files[i].id == id) {
                         this.files.splice(i, 1);
@@ -80,6 +81,7 @@
                 this.$emit('update:file-ids', this.fileIds);
             },
             starImg : function(id) {
+                id = parseInt(id);
                 for (var i in this.files) {
                     if (this.files[i].id == id) {
                         var newCover = this.files[i];
