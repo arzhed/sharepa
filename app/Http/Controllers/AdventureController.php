@@ -24,6 +24,7 @@ class AdventureController extends Controller
             });
             return $user->adventures;
         }
+        return Adventure::with('cover')->get();
     }
 
     /**

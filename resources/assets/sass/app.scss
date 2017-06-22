@@ -13,7 +13,20 @@
 @import "resources/assets/sass/upload";
 
 body {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+#main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.back-img-full {
     background-image: url("/img/homepage.jpg");
+    height: 64vw;
 }
 
 a {
@@ -53,4 +66,8 @@ a.nostyle {
 
 .full-height {
     height: 100vh;
+}
+
+.no-margin {
+    margin:0 !important;
 }

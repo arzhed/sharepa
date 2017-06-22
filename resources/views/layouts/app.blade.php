@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-transparent">
+        <nav id="main-nav" class="navbar navbar-default no-margin">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -37,7 +37,8 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul v-if="user.role == 'traveler'" class="nav navbar-nav">
-                        <li><router-link to="#adventures">Find your adventure</router-link></li>
+                        <li><router-link to="#path">Choose your path</router-link></li>
+                        <li><router-link to="#experiences">Best experiences</router-link></li>
                     </ul>
                     <ul v-if="user.role == 'guide'" class="nav navbar-nav">
                         <li><router-link to="/guide/dashboard">Dashboard</router-link></li>
@@ -71,7 +72,7 @@
             </div><!-- /.container-fluid -->
         </nav>
 
-        <router-view v-on:toggle-logged="toggleLogged"></router-view>
+        <router-view v-on:toggle-logged="toggleLogged" :user="user" :logged="logged"></router-view>
     </div>
 
     <!-- Scripts -->

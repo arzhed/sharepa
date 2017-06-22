@@ -81,5 +81,14 @@ var routes = [
 ];
 
 module.exports = new VueRouter({
-    routes: routes
+    routes: routes,
+    mode: 'history',
+    scrollBehavior : function(to, from, savedPosition) {
+        if (to.hash) {
+            return {
+              selector: to.hash
+              // , offset: { x: 0, y: 10 }
+            }
+        }
+    }
 });
