@@ -19,7 +19,7 @@
 
 <script>
     module.exports = {
-        props : ['model'],
+        props : ['model', 'user'],
         computed : {
             src : function() {
                 if (this.model.cover !== undefined)
@@ -27,6 +27,9 @@
                 return '';
             },
             to : function() {
+                if (this.user != undefined && this.user.role == 'traveler') {
+                    return '/traveler/adventure/' + this.model.id;
+                }
                 return '/guide/adventure/' + this.model.id;
             }
         }
