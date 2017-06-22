@@ -75,6 +75,15 @@ const app = new Vue({
             this.logged = false;
             this.user = { name : ''}
             window.axios.defaults.headers.common['Authorization'] = '';
+        },
+        switchRole : function() {
+            var newRole = this.user.role == 'guide' ? 'traveler' : 'guide', vm = this;
+            axios.put('/api/user/' + this.user.id, {
+                role : newRole
+            }).then(function(response) {
+                vm.user = response.data;
+                vm.$router.push({path: '/'});
+            });
         }
     }
 });

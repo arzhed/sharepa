@@ -88,16 +88,11 @@ class UserController extends Controller
 
         $this->validate($request, [
             'short_bio' => 'string|max:300',
-            'long_bio'  => 'string'
+            'long_bio'  => 'string',
+            'role'      => 'in:guide,traveler'
         ]);
 
-        if ($request->has('short_bio')) {
-            $user->short_bio = $request->short_bio;
-        }
-        if ($request->has('long_bio')) {
-            $user->long_bio = $request->long_bio;
-        }
-        $user->save();
+        $user->update($request->all());
 
         return $user->toArray();
     }

@@ -36,9 +36,12 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><router-link to="/guide/adventures">Adventures</router-link></li>
+                    <ul v-if="user.role == 'traveler'" class="nav navbar-nav">
+                        <li><router-link to="#adventures">Find your adventure</router-link></li>
+                    </ul>
+                    <ul v-if="user.role == 'guide'" class="nav navbar-nav">
                         <li><router-link to="/guide/dashboard">Dashboard</router-link></li>
+                        <li><router-link to="/guide/adventures">Adventures</router-link></li>
                     </ul>
                     <ul v-if="!logged" class="nav navbar-nav navbar-right">
                       <!-- Authentication Links -->
@@ -52,6 +55,11 @@
                                  @{{ user.name }}<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a v-on:click="switchRole">Switch to
+                                        <span v-if="user.role == 'traveler'">Guide</span>
+                                        <span v-if="user.role == 'guide'">Traveler</span> mode</a>
+                                </li>
                                 <li>
                                     <a v-on:click="logout">Logout</a>
                                 </li>
