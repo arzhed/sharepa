@@ -8,6 +8,7 @@ $error-color : #d54c4c;
 
     &.with-cover {
         .thumb-container:first-child {
+            background-color: black;
             display: block;
             .thumb-file {
                 height: 30rem;
@@ -20,7 +21,7 @@ $error-color : #d54c4c;
 
     &.thumb {
         height: 14rem;
-        margin-bottom: $marginBottom;
+        // margin-bottom: $marginBottom;
         margin-right: $marginRight;
     }
 
@@ -30,6 +31,7 @@ $error-color : #d54c4c;
 
     &.thumb-container {
         display: inline-block;
+        text-align: center;
 
         &:hover .thumb-hover {
             display: flex;
@@ -45,7 +47,8 @@ $error-color : #d54c4c;
             position: absolute;
             top: 0;
             left: 0;
-            height: calc(100% - #{$marginBottom});
+            // height: calc(100% - #{$marginBottom});
+            height: calc(100%);
             width: calc(100% - #{$marginRight});
 
             span {
@@ -101,8 +104,8 @@ $error-color : #d54c4c;
 }
 
 output.upload {
-    text-align: center;
     display: inline-block;
+    width: 100%;
 }
 
 .position-relative {

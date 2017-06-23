@@ -2,20 +2,30 @@
     <div>
         <output :id="outputId" class="upload">
             <upload-thumb v-for="photo in files" :key="photo.id" :id="photo.id" :src="photo.path" :name="photo.name" :img-prefix="imgPrefix" v-on:remove-img="removeImg" v-on:star-img="starImg"></upload-thumb>
-            <div :id="addId" class="upload add text-primary" v-on:click="triggerBrowse"><div class="upload thumb thumb-custom text-primary"><span class="glyphicon glyphicon-plus"></span></div></div>
+            <div :id="addId" class="upload add text-primary" v-on:click="triggerBrowse"><div class="upload thumb thumb-custom text-primary"><span class="glyphicon glyphicon-picture"></span></div></div>
         </output>
-        <input :id="uploadId" type="file" multiple v-on:change="filesAppended" style="display:none"></input>
+        <input v-if="single != 'true'" :id="uploadId" type="file" multiple v-on:change="filesAppended" style="display:none"></input>
+        <input v-if="single == 'true'" :id="uploadId" type="file" v-on:change="filesAppended" style="display:none"></input>
     </div>
 </template>
 
 <script>
 
-
     module.exports = {
-        props: ['uploadId', 'uploadUrl', 'fileIds', 'cover', 'imgPrefix', 'oldFiles'],
+        props: ['uploadId', 'uploadUrl', 'fileIds', 'cover', 'imgPrefix', 'oldFiles', 'single'],
         mounted : function() {
             if (this.cover == 'true') {
                 document.getElementById(this.outputId).className += ' with-cover';
+            }
+        },
+        data : function () {
+            return {
+                files : []
+            }
+        },
+        watch : {
+            oldFiles : function() {
+                this.files = this.oldFiles;
             }
         },
         computed : {
@@ -24,11 +34,6 @@
             },
             addId : function() {
                 return this.uploadId + '-add';
-            },
-            files : function() {
-                if (this.oldFiles !== undefined)
-                    return this.oldFiles;
-                return [];
             }
         },
         methods : {
@@ -37,6 +42,11 @@
             },
             filesAppended : function() {
                 var files = document.getElementById(this.uploadId).files;
+
+                if (this.single == 'true') {
+                    this.files = [];
+                    this.fileIds = [];
+                }
 
                 for (var i = 0, f; f = files[i]; i++) {
                     // Only process image files.
