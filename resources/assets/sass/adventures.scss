@@ -36,3 +36,48 @@
         }
     }
 }
+
+#adventure-read {
+    #cover-container {
+        max-height: 50rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        + div {
+            margin-bottom: 3rem;
+        }
+        img {
+            width: 100%;
+        }
+    }
+    .thumb-img {
+        height: 20rem;
+    }
+    #adventure-body {
+        h2 {
+            padding-left: 1rem;
+            font-weight: bold;
+            text-align: center;
+            font-size: 6rem;
+            margin-bottom: 3rem;
+        }
+        #adventure-body-header {
+            display: flex;
+            align-items: center;
+        }
+        #guide-sider {
+            text-align: center;
+            font-weight: bold;
+            img {
+                width: 18rem;
+                text-align: center;
+                border: 5px solid black;
+                border-radius: 50%;
+                margin: 2rem;
+            }
+        }
+    }
+    #short_description {
+        font-weight: bold;
+    }
+}

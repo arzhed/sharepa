@@ -20,6 +20,10 @@ class Adventure extends Model
         return $this->hasOne('App\File', 'id', 'cover_photo');
     }
 
+    public function guide() {
+        return $this->hasOne('App\User', 'id', 'guide_id');
+    }
+
     public function update(array $attributes = [], array $options = [])
     {
         parent::update($attributes, $options);

@@ -37,8 +37,8 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul v-if="user.role == 'traveler'" class="nav navbar-nav">
-                        <li><router-link to="#path">Choose your path</router-link></li>
-                        <li><router-link to="#experiences">Best experiences</router-link></li>
+                        <li><router-link to="/">Choose your path</router-link></li>
+                        <!-- <li><router-link to="#experiences">Best experiences</router-link></li> -->
                     </ul>
                     <ul v-if="user.role == 'guide'" class="nav navbar-nav">
                         <li><router-link to="/guide/dashboard">Dashboard</router-link></li>

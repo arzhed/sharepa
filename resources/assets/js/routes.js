@@ -78,17 +78,28 @@ var routes = [
             }
         },
     },
+    {
+        path: '/traveler/adventure/:id',
+        component: require('./views/travelers/ReadAdventure.vue'),
+        beforeEnter: function(to,from, next) {
+            if (isLoggedIn()) {
+                next();
+            } else {
+                next(false);
+            }
+        },
+    },
 ];
 
 module.exports = new VueRouter({
     routes: routes,
-    mode: 'history',
-    scrollBehavior : function(to, from, savedPosition) {
-        if (to.hash) {
-            return {
-              selector: to.hash
-              // , offset: { x: 0, y: 10 }
-            }
-        }
-    }
+    // mode: 'history',
+    // scrollBehavior : function(to, from, savedPosition) {
+    //     if (to.hash) {
+    //         return {
+    //           selector: to.hash
+    //           // , offset: { x: 0, y: 10 }
+    //         }
+    //     }
+    // }
 });

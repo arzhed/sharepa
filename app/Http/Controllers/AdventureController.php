@@ -90,7 +90,7 @@ class AdventureController extends Controller
             return response('Adventure does not exist', 404);
         }
 
-        return Adventure::find($id)->load('files');
+        return Adventure::find($id)->load('files', 'cover', 'guide');
     }
 
     /**
