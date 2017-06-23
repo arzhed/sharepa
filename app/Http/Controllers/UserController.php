@@ -90,7 +90,7 @@ class UserController extends Controller
             'short_bio' => 'string|max:300',
             'long_bio'  => 'string',
             'role'      => 'in:guide,traveler',
-            'photo'     => 'exists:files,id'
+            'photo'     => 'exists:files,id|nullable'
         ]);
 
         $user->update($request->all());

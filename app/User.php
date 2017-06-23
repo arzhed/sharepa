@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'photo'
+        'name', 'email', 'password', 'role', 'photo', 'short_bio', 'long_bio'
     ];
 
     /**
@@ -53,6 +53,10 @@ class User extends Authenticatable
 
     public function files() {
         return $this->hasMany('App\File', 'user_id', 'id');
+    }
+
+    public function photo() {
+        return $this->hasOne('App\File', 'id', 'photo');
     }
 
 }

@@ -7,25 +7,32 @@
             <div class="row">
                 <img v-for="file in model.files" v-if="file.id != model.cover_photo" :src="'/storage/' + file.path" class="thumb-img"/>
             </div>
-            <div id="adventure-body" class="row">
+            <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <h2>{{model.title}}</h2>
-                    <div id="adventure-body-header" class="row panel panel-default ">
+                    <div id="adventure-body" class="row panel panel-default ">
                         <div id="guide-sider" class="col-md-3">
                             <div class="row">
-                                <img src="/img/user.png"/>
+                                <img v-if="model.guide.photo != undefined" :src="'/storage/' + model.guide.photo.path"/>
+                                <img v-if="model.guide.photo == undefined" src="/img/user.png"/>
                             </div>
                             {{model.guide.name}}
                         </div>
                         <div class="col-md-9">
-                            <div id="short_description" class="panel-body">
+                            <h3> About the guide </h3>
+                            <div class="emphasis">
+                                {{model.guide.short_bio}}
+                            </div>
+                            <div class="row">
+                                {{model.guide.long_bio}}
+                            </div>
+                            <h3> About this experience </h3>
+                            <div class="emphasis">
                                 {{model.description}}
                             </div>
-                        </div>
-                    </div>
-                    <div class="row panel panel-default">
-                        <div id="long_description" class="panel-body col-md-10 col-md-offset-1">
-                            {{model.long_description}}
+                            <div id="long_description" class="row">
+                                {{model.long_description}}
+                            </div>
                         </div>
                     </div>
                 </div>
