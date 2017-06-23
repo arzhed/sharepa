@@ -74,7 +74,8 @@
 
                 axios.put('/api/user/' + this.$parent.user.id, {
                     short_bio: this.short_bio,
-                    long_bio : this.long_bio
+                    long_bio : this.long_bio,
+                    photo    : this.photo_ids.length == 0 ? null : this.photo_ids[0]
                 }).then(function(response) {
                     vm.$router.push({path: '/'});
                 }).catch(function(error) {

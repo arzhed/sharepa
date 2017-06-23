@@ -89,7 +89,8 @@ class UserController extends Controller
         $this->validate($request, [
             'short_bio' => 'string|max:300',
             'long_bio'  => 'string',
-            'role'      => 'in:guide,traveler'
+            'role'      => 'in:guide,traveler',
+            'photo'     => 'exists:files,id'
         ]);
 
         $user->update($request->all());
