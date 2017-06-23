@@ -72,7 +72,7 @@
             </div><!-- /.container-fluid -->
         </nav>
 
-        <router-view v-on:toggle-logged="toggleLogged" :user="user" :logged="logged"></router-view>
+        <router-view id="main-view" v-on:toggle-logged="toggleLogged" :user="user" :logged="logged"></router-view>
     </div>
 
     <!-- Scripts -->

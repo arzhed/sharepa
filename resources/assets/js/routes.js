@@ -24,19 +24,8 @@ var routes = [
         }
     },
     {
-        path: '/register/guide',
-        component: require('./views/auth/GuideRegister.vue'),
-        beforeEnter: function(to,from, next) {
-            if (isLoggedIn() && from.name == 'register') {
-                next();
-            } else {
-                next(false);
-            }
-        },
-    },
-    {
-        path: '/register/traveler',
-        component: require('./views/auth/TravelerRegister.vue'),
+        path: '/register/2',
+        component: require('./views/auth/Register2.vue'),
         beforeEnter: function(to,from, next) {
             if (isLoggedIn() && from.name == 'register') {
                 next();

@@ -25,6 +25,10 @@ body {
     z-index: 100;
 }
 
+#main-view {
+    margin-top: 5rem;
+}
+
 .back-img-full {
     background-image: url("/img/homepage.jpg");
     height: 50vw;
@@ -71,4 +75,8 @@ a.nostyle {
 
 .no-margin {
     margin:0 !important;
+}
+
+.padding-top-45 {
+    padding-top: 4.5rem;
 }

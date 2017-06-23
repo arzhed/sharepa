@@ -75,6 +75,7 @@ const app = new Vue({
             this.logged = false;
             this.user = { name : ''}
             window.axios.defaults.headers.common['Authorization'] = '';
+            this.$router.push({path: '/'});
         },
         switchRole : function() {
             var newRole = this.user.role == 'guide' ? 'traveler' : 'guide', vm = this;

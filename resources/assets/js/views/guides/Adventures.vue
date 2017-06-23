@@ -1,12 +1,14 @@
 <template>
-    <div class="container">
-        <div class="text-center">
-            <div class="row">
-                <adventure v-for="adventure in adventures" :key="adventure.id" v-bind:model="adventure"></adventure>
+    <div>
+        <div class="container padding-top-45">
+            <div class="text-center">
+                <div class="row">
+                    <adventure v-for="adventure in adventures" :key="adventure.id" v-bind:model="adventure"></adventure>
+                </div>
+                <router-link class="row" to="/guide/adventures/create">
+                    <button class="btn btn-default">Create a new adventure</button>
+                </router-link>
             </div>
-            <router-link class="row" to="/guide/adventures/create">
-                <button class="btn btn-default">Create a new adventure</button>
-            </router-link>
         </div>
     </div>
 </template>

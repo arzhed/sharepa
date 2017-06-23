@@ -1,52 +1,54 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Create a new adventure</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal" v-on:submit="submit">
-                            <div class="form-group">
-                                <label for="title" class="col-md-3 control-label">Title</label>
-                                <div class="col-md-7">
-                                    <input type="text" v-on:input="$v.model.title.$touch" id="title" v-model.trim="model.title" class="form-control" name="title" autofocus="" placeholder=""></input>
-                                    <span class="form-error" v-show="$v.model.title.$dirty && !$v.model.title.required">Title is required</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="photos" class="col-md-3 control-label">Photos</label>
-                                <div class="col-md-9">
-                                    <upload upload-id="photos" upload-url="/api/upload" cover="true" img-prefix="/storage" :file-ids="photo_ids" v-on:update:file-ids="updateFiles" :old-files="model.files"></upload>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="price" class="col-md-3 control-label">Price</label>
-                                <div class="col-md-7">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">$</span>
-                                        <input type="number" min="1" v-on:input="$v.model.price.$touch" id="price" v-model.trim="model.price" class="form-control" name="price"></input>
+    <div>
+        <div class="padding-top-45">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Create a new adventure</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" v-on:submit="submit">
+                                <div class="form-group">
+                                    <label for="title" class="col-md-2 col-lg-3 control-label">Title</label>
+                                    <div class="col-md-9 col-lg-7">
+                                        <input type="text" v-on:input="$v.model.title.$touch" id="title" v-model.trim="model.title" class="form-control" name="title" autofocus="" placeholder=""></input>
+                                        <span class="form-error" v-show="$v.model.title.$dirty && !$v.model.title.required">Title is required</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="description" class="col-md-3 control-label">Short Description</label>
-                                <div class="col-md-7">
-                                    <textarea v-on:input="$v.model.description.$touch" id="description" v-model.trim="model.description" class="form-control" name="description" placeholder="150 characters max" maxlength="150"></textarea>
-                                    <span class="form-error" v-show="$v.model.description.$dirty && !$v.model.description.required">Short Description is required</span>
+                                <div class="form-group">
+                                    <label for="photos" class="col-md-2 col-lg-3 control-label">Photos</label>
+                                    <div class="col-md-9 col-lg-7">
+                                        <upload upload-id="photos" upload-url="/api/upload" cover="true" img-prefix="/storage" :file-ids="photo_ids" v-on:update:file-ids="updateFiles" :old-files="model.files"></upload>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="long_description" class="col-md-3 control-label">In details</label>
-                                <div class="col-md-7">
-                                    <textarea v-on:input="$v.model.long_description.$touch" id="long_description" v-model.trim="model.long_description" class="form-control" name="long_description" placeholder=""></textarea>
+                                <div class="form-group">
+                                    <label for="price" class="col-md-2 col-lg-3 control-label">Price</label>
+                                    <div class="col-md-9 col-lg-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="number" min="1" v-on:input="$v.model.price.$touch" id="price" v-model.trim="model.price" class="form-control" name="price"></input>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-7 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary" v-on:click="submit">Save</button>
+                                <div class="form-group">
+                                    <label for="description" class="col-md-2 col-lg-3 control-label">Short Description</label>
+                                    <div class="col-md-9 col-lg-7">
+                                        <textarea v-on:input="$v.model.description.$touch" id="description" v-model.trim="model.description" class="form-control" name="description" placeholder="150 characters max" maxlength="150"></textarea>
+                                        <span class="form-error" v-show="$v.model.description.$dirty && !$v.model.description.required">Short Description is required</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <label for="long_description" class="col-md-2 col-lg-3 control-label">In details</label>
+                                    <div class="col-md-9 col-lg-7">
+                                        <textarea v-on:input="$v.model.long_description.$touch" id="long_description" v-model.trim="model.long_description" class="form-control" name="long_description" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-7 col-md-offset-4">
+                                        <button type="submit" class="btn btn-primary" v-on:click="submit">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
